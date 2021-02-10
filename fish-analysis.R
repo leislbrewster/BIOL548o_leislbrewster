@@ -1,3 +1,4 @@
+#This function reads the file into R
 fish_data<- read.csv("Gaeta_etal_CLC_data.csv")
 library(dplyr)
 fish_data_cat = fish_data %>% 
