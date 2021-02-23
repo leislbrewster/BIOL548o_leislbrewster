@@ -1,0 +1,5 @@
+library(tidyverse)
+surveys <- read_csv("data/surveys.csv")
+select(surveys, year, month, day)
+select(surveys, month, day, year)
+filter(surveys, species_id == "DS")
