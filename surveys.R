@@ -21,6 +21,8 @@ filter(shrub, height > 5)
 #adding new column containing the volumes
 shrub_data_w_vols<- mutate (shrub,
                             volume=length*width*height)
+write_csv(shrub_data_w_vols, path = file.path("data", "Shrub_volume.csv"))
+
 #Basic aggregation
 group_by(surveys, species_id)
 surveys_by_species <- group_by(surveys, species_id)
@@ -50,13 +52,56 @@ survey_weight<-select(surveys, year, species_id, weight)
 survey_weight<-mutate(survey_weight,
                       weight(kg)= weight/1000)
 survey_weight<-na.omit(survey_weight)
+#filter by species ID
+survey_weight_SH<-filter(survey_weight, species_id=="SH")
+#Getting abundance by grouping by ID and year
+survey_ID<-group_by(surveys, species_id)
+survey_ID<-summarise(survey_ID, abundance = n())
 
-survey_weight_SH<-filter()
+survey_ID_year<-group_by(surveys, species_id, year)
+survey_ID_year<-summarise(survey_ID_year, abundance = n())
 
-#Help from Gaurav
-surveys_kg <- mutate(surveys, weight_kg = weight/1000)
-surveys_kg <- na.omit(surveys_kg)
-surveys_kg <- select(surveys_kg, year, species_id, weight_kg)
+#DO species specific abundance
+DO_survey<-filter(surveys, species_id=="DO")
+DO_survey<-group_by(DO_survey, year)
+DO_survey<-summarise(DO_survey,
+                     mean_mass = mean(weight, na.rm = TRUE))
+DO_survey<-na.omit(DO_survey)
+write_csv(DO_survey, path = file.path("data", "DO_survey.csv"))
 
-surveys_speciesID_year <- group_by(surveys, species_id, year)
-surveys_speciesID_year <- summarize(surveys_speciesID_year, abundance = n())
+#pipes
+x = c(1, 2, 3, NA)
+mean(x, na.rm = TRUE)
+x %>% mean(na.rm = TRUE)
+
+surveys %>%
+  filter(species_id == "DS", !is.na(weight))
+
+ds_weight_by_year <- surveys %>%
+  filter(species_id == "DS") %>%
+  group_by(year) %>%
+  summarize(avg_weight = mean(weight, na.rm = TRUE))
+
+#Exercise 3
+
+survey_ex3 <- surveys %>%
+  mutate(weight_kg = weight/1000)%>%
+  select(year, weight_kg, species_id)%>%
+  na.omit()
+
+survey_ex3_2<- surveys %>%
+  filter(species_id == "SH") %>%
+  select(year, month, day, species_id)
+
+survey_ex3_3<- surveys %>%
+  group_by(species_id)%>%
+  summarise(abundance = n())
+
+survey_ex3_4<- surveys %>%
+  group_by(year, species_id)%>%
+  summarise(abundance = n())
+
+survey_ex3_5<- surveys %>%
+  filter(species_id == "DO") %>%
+  group_by(species_id, year) %>%
+  summarise(abundance = n())
