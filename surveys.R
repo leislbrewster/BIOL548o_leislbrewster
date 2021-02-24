@@ -105,3 +105,14 @@ survey_ex3_5<- surveys %>%
   filter(species_id == "DO") %>%
   group_by(species_id, year) %>%
   summarise(abundance = n())
+
+#Filtering under multiple condition
+filter(surveys, species_id == "DS", year > 1995)
+filter(surveys, species_id == "DS" & year > 1995)
+filter(surveys, species_id == "DS" | species_id == "DM" | species_id == "DO")
+
+#Filtering by aggregated value 
+species_weights <- surveys %>%
+  group_by(species) %>%
+  filter(n() > 100) %>%
+  summarize(avg_weight = mean(weight, na.rm = TRUE))
