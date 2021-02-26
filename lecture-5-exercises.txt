@@ -1,0 +1,8 @@
+1. variable we need = origin, dest, tailnum ,
+Tables we have to combine = weather, airports, planes
+
+2. Weather connects to airports via origin - the faa and the origin are the same 
+
+3. dest
+
+4.Can represent it as a dataframe with the variables: year, month, day, tailnum, flight density. This dataset would connect to the weather dataset via year, month and day and the dataset planes via tailnum
