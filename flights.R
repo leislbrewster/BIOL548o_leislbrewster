@@ -1,16 +1,20 @@
-1. variable we need = origin, dest, tailnum ,
-Tables we have to combine = weather, airports, planes
+install.packages("nycflights13")
+library(nycflights13)
+library(tidyverse)
+library(RColorBrewer)
+library(visreg)
+airports
+airlines
+flights
+weather
+planes
 
-2. Weather connects to airports via origin - the faa and the origin are the same 
+flights2 <- flights %>% 
+  select(year:day, hour, origin, dest, tailnum, carrier)
 
-3. dest
-
-4.Can represent it as a dataframe with the variables: year, month, day, tailnum, flight density. This dataset would connect to the weather dataset via year, month and day and the dataset planes via tailnum
-
-
-Section 4.6
-1)R script:
-
+flights <- flights
+#drawing the map
+#average delays
 flights_delay<- flights %>%
   group_by(dest) %>%
   summarise(average_delay = mean (arr_delay,na.rm = TRUE))
@@ -22,10 +26,24 @@ ggplot(aes(lon, lat)) +
   geom_point(aes(color = average_delay)) +
   scale_colour_gradient(low = "steelblue", high = "yellow")+
   coord_quickmap()
+  
 
-2)
 
-R script:
+
+flight_delays_airports
+
+
+
+#Number 2
+
+
+
+
+#group by  destination and then summarise to get the mean
+  
+#flights2 <- flights %>% select(year:day, hour, origin, dest, tailnum, carrier)
+
+
 flights2 <- flights %>% 
   select(year:day, hour, origin, dest, tailnum, carrier)
 
@@ -47,10 +65,7 @@ flights4<-airports %>%
 flights4<-flights4 %>%
   rename(c(origin = faa, or_lat = lat, or_lon = lon))%>%
   na.omit()
-  
-  
-3)There is a weak but significant relationship between the age of the plane and its delays (p-value: < 2.2e-16).
-R script:
+#number3
 
 flight_age<-flights %>%
   left_join(planes, by = "tailnum")%>%
@@ -68,3 +83,4 @@ flight_age %>%
   labs(x = "Plane Year", y = "Arival Delay")
 
 visreg(mod1)
+
