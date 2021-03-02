@@ -68,3 +68,20 @@ flight_age %>%
   labs(x = "Plane Year", y = "Arival Delay")
 
 visreg(mod1)
+
+section 5.1
+
+2)
+flights_100<- flights %>%
+  filter(flight > 100)
+  
+5)
+flight_anti_join1<-anti_join(flights, airports, by = c("dest" = "faa"))
+
+This line of code prints all of the observations in "flights" for which there are no faa codes in "airports" for a given destination. For example, there are 5819 flights that landed at SJU, howvever, there are no faa codes for this destination listed in the "airports" dataframe so there is no way to determine the name or location of the SJU destination, given the data.
+
+
+
+flight_anti_join2<-anti_join(airports, flights, by = c("faa" = "dest"))
+
+This line of code prints all of the obsevrations in "airports" where a given faa code does not have a match to any of the destinations in "flights". For example, by joining these 2 datasets one can see that none of the planes in "flights" landed at 04G	or Lansdowne Airport, as this faa code is not found under the dest column in "flights".
