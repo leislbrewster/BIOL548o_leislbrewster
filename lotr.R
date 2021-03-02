@@ -43,8 +43,24 @@ z <- summarize(group_by(lotr_untidy, Race),
                Sum1 = sum(Female, na.rm = TRUE),
                Sum2 = sum(Male, na.rm = TRUE),
                )
-
-
 #lotr_tidy
 lotr_tidy %>% 
   count( Race, wt = Words)
+
+#Part2 - Spreading the data
+#Spread across race
+lotr_tidy %>% 
+  spread(key = Race, value = Words)
+#Spread across gender
+lotr_tidy %>% 
+  spread(key = Gender, value = Words)
+# practicing with spread ... and unite: let's get one variable per combo of Race and Gender
+lotr_tidy %>% 
+  unite(Race_Gender, Race, Gender) %>% 
+  spread(key = Race_Gender, value = Words)
+#Exercise 3
+
+lotr_untidy_pivot<-lotr_tidy %>%
+pivot_wider(names_from = c(Race, Gender), values_from = Words)
+
+write_csv(lotr_untidy_pivot, path = file.path("data", "lotr_untidy_pivot.csv"))
