@@ -49,7 +49,7 @@ flights4<-flights4 %>%
   na.omit()
   
   
-3)There is a weak but significant relationship between the age of the plane and its delays (p-value: < 2.2e-16).
+3)There is no relationship between the age of the plane and its delays (p-value: < 2.2e-16).
 R script:
 
 flight_age<-flights %>%
