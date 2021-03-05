@@ -21,4 +21,25 @@ get_mass_from_length <- function(length, a, b){
   return(mass)
 }
 
-get_mass_from_length(26, 214.44, 1.46)
+get_mass_from_length(22, 214.44, 1.46)
+
+#Exercise 2
+
+
+get_mass_from_length_2 <- function(length, a = 39.9, b = 2.6){
+  mass <- a * length ^ b
+  return(mass)
+}
+
+get_mass_from_length_2(22)
+
+
+
+
+#Exercise 4
+get_mass_from_length_in_lb <- function(length, a, b){
+  mass <- a * length ^ b
+  mass_in_pounds<-mass*2.205
+  return(mass_in_pounds)
+}
+get_mass_from_length_in_lb(12, 10.95, 2.64)
