@@ -17,6 +17,9 @@ x>y
 masses>40
 
 #Exercise 2
-for(i in 1:5){
-  
+
+age_class = "sapling"
+if (age_class =="sapling"){
+  y<-10
 }
+y
