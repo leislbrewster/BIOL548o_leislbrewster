@@ -71,3 +71,36 @@ get_mass_from_length_by_name(8, "Theropoda")
 get_mass_from_length_by_name(12, "Sauropoda")
 
 get_mass_from_length_by_name(13, "Ankylosauria")
+
+
+#Exerccise 5
+for (i in 2:16){
+  print(i)
+}
+
+for (i in 1:5){
+  times3<-i*3
+  print(times3)
+}
+
+birds = c('robin', 'woodpecker', 'blue jay', 'sparrow')
+for (i in 1:length(birds)){
+  print(birds[i])
+}
+
+
+radius <- c(1.3, 2.1, 3.5)
+areas <- vector( mode= "numeric", length = 3)
+for (i in 1:length(radius)){
+  areas[i] <- pi * radius[i] ^ 2
+}
+areas
+
+
+lengths = c(1.1, 2.2, 1.6)
+widths = c(3.5, 2.4, 2.8)
+areas <- vector(length = 3)
+for (i in 1: length(widths)) {
+  areas[i] <- lengths[i] * widths[i]
+}
+areas
