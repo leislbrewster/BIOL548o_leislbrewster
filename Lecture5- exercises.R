@@ -100,3 +100,14 @@ airports %>%
   count(faa, sort = TRUE)
 
 
+#
+flights %>%
+mutate(tot_delay = arr_delay + dep_delay) %>%
+  group_by(tailnum) %>%
+  summarize(avg_delay = mean(tot_delay, na.rm = TRUE)) %>%
+  left_join(select(planes, tailnum, year), by = "tailnum") %>%
+  mutate(year = 2013 - year) %>%
+  ggplot(aes(avg_delay, year)) +
+  geom_point() +
+  geom_smooth()
+
